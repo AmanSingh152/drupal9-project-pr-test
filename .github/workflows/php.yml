@@ -1,0 +1,44 @@
+name: PHP Sniff and Merge Workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  phpsniff_and_merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Install Composer dependencies
+        run: composer install
+
+      - name: Run phpsniff and capture output
+        id: phpsniff
+        run: |
+          PHPSNIFF_OUTPUT=$(php vendor/bin/phpsniff 2>&1)
+          echo "::set-output name=phpsniff_output::$PHPSNIFF_OUTPUT"
+
+      - name: Check for errors
+        run: |
+          PHPSNIFF_OUTPUT="${{ steps.phpsniff.outputs.phpsniff_output }}"
+          if [ -n "$PHPSNIFF_OUTPUT" ]; then
+            echo "PHP Sniff found errors:"
+            echo "$PHPSNIFF_OUTPUT"
+            exit 1
+          fi
+
+      - name: Merge pull request
+        if: success()
+        uses: repo-sync/pull-request@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          method: merge
