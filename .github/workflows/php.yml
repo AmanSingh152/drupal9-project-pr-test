@@ -28,7 +28,7 @@ jobs:
           PHPSNIFF_OUTPUT=$(php vendor/bin/phpsniff 2>&1)
           echo "$PHPSNIFF_OUTPUT"  # Print the output for debugging
           echo "::set-output name=phpsniff_output::$PHPSNIFF_OUTPUT"
-
+          exit 0  # Add this line to ensure the script continues, even if PHP Sniffer exits with an error
       - name: Check for errors
         run: |
           PHPSNIFF_OUTPUT="${{ steps.phpsniff.outputs.phpsniff_output }}"
