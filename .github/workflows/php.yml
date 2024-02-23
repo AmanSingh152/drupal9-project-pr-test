@@ -32,7 +32,7 @@ jobs:
 
       - name: Check for errors
         run: |
-          PHPSNIFF_OUTPUT="${{ env.PHPSNIFF_OUTPUT }}" 
+          PHPSNIFF_OUTPUT="${{ env.PHPSNIFF_OUTPUT }}"
           if [ -n "$PHPSNIFF_OUTPUT" ]; then
             echo "PHP Sniff found errors:"
             echo "$PHPSNIFF_OUTPUT"
