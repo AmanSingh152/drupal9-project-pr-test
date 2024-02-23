@@ -19,6 +19,7 @@
         "drupal/core-composer-scaffold": "9.0.0",
         "drupal/core-project-message": "9.0.0",
         "drupal/core-recommended": "9.0.0"
+        "squizlabs/php_codesniffer": "^3.0"
     },
     "conflict": {
         "drupal/drupal": "*"
