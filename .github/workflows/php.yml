@@ -33,10 +33,9 @@ jobs:
 
       - name: Check for errors
         run: |
-          PHPCS_OUTPUT="${{ env.PHPCS_OUTPUT }}"
-          if [ -n "$PHPCS_OUTPUT" ]; then
+          if [ -n "${{ env.PHPCS_OUTPUT }}" ]; then
             echo "PHP CodeSniffer found errors:"
-            echo "$PHPCS_OUTPUT"
+            echo "${{ env.PHPCS_OUTPUT }}"
             exit 1
           fi
 
