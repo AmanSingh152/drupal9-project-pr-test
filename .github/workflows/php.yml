@@ -25,6 +25,7 @@ jobs:
       - name: Run phpcs and capture output
         id: phpcs
         run: |
+          ls -la  # List files in the current directory for debugging
           PHPCS_OUTPUT=$(php vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme --ignore=vendor,core,modules/contrib,themes/contrib . 2>&1) || true
           echo "$PHPCS_OUTPUT"  # Print the output for debugging
           echo "PHPCS_OUTPUT=$PHPCS_OUTPUT" >> $GITHUB_ENV
