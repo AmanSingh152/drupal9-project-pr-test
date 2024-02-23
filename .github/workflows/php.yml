@@ -26,6 +26,7 @@ jobs:
         id: phpsniff
         run: |
           PHPSNIFF_OUTPUT=$(php vendor/bin/phpsniff 2>&1)
+          echo "$PHPSNIFF_OUTPUT"  # Print the output for debugging
           echo "::set-output name=phpsniff_output::$PHPSNIFF_OUTPUT"
 
       - name: Check for errors
