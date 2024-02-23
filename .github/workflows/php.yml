@@ -22,20 +22,20 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist
 
-      - name: Run phpsniff and capture output
-        id: phpsniff
+      - name: Run phpcs and capture output
+        id: phpcs
         run: |
-          PHPSNIFF_OUTPUT=$(php vendor/bin/phpsniff 2>&1) || true
-          echo "$PHPSNIFF_OUTPUT"  # Print the output for debugging
-          echo "PHPSNIFF_OUTPUT=$PHPSNIFF_OUTPUT" >> $GITHUB_ENV
-          exit 0  # Add this line to ensure the script continues, even if PHP Sniffer exits with an error
+          PHPCS_OUTPUT=$(php vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme --ignore=vendor,core,modules/contrib,themes/contrib . 2>&1) || true
+          echo "$PHPCS_OUTPUT"  # Print the output for debugging
+          echo "PHPCS_OUTPUT=$PHPCS_OUTPUT" >> $GITHUB_ENV
+          exit 0  # Add this line to ensure the script continues, even if PHP CodeSniffer exits with an error
 
       - name: Check for errors
         run: |
-          PHPSNIFF_OUTPUT="${{ env.PHPSNIFF_OUTPUT }}"
-          if [ -n "$PHPSNIFF_OUTPUT" ]; then
-            echo "PHP Sniff found errors:"
-            echo "$PHPSNIFF_OUTPUT"
+          PHPCS_OUTPUT="${{ env.PHPCS_OUTPUT }}"
+          if [ -n "$PHPCS_OUTPUT" ]; then
+            echo "PHP CodeSniffer found errors:"
+            echo "$PHPCS_OUTPUT"
             exit 1
           fi
 
@@ -45,5 +45,3 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           method: merge
-
-
