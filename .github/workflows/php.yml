@@ -25,9 +25,9 @@ jobs:
       - name: Run phpsniff and capture output
         id: phpsniff
         run: |
-          PHPSNIFF_OUTPUT=$(php vendor/bin/phpsniff 2>&1)
-          echo "$PHPSNIFF_OUTPUT"  # Print the output for debugging
+          PHPSNIFF_OUTPUT=$(php vendor/bin/phpsniff 2>&1) || true
           echo "::set-output name=phpsniff_output::$PHPSNIFF_OUTPUT"
+          echo "$PHPSNIFF_OUTPUT"  # Print the output for debugging
           exit 0  # Add this line to ensure the script continues, even if PHP Sniffer exits with an error
 
       - name: Check for errors
@@ -45,3 +45,4 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           method: merge
+
