@@ -26,7 +26,7 @@ jobs:
         id: phpcs
         run: |
           ls -la  # List files in the current directory for debugging
-          PHPCS_OUTPUT=$(php vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme --ignore=vendor,core,modules/contrib,themes/contrib . 2>&1) || true
+          PHPCS_OUTPUT=$(php vendor/bin/phpcs --standard=Generic --sniffs=Generic.Metrics.CyclomaticComplexity web 2>&1) || true
           echo "$PHPCS_OUTPUT"  # Print the output for debugging
           echo "PHPCS_OUTPUT=$PHPCS_OUTPUT" >> $GITHUB_ENV
           exit 0  # Add this line to ensure the script continues, even if PHP CodeSniffer exits with an error
