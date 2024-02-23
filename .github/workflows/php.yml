@@ -39,7 +39,7 @@ jobs:
             exit 1
           fi
 
-      - name: Merge pull request
+      - name: Merge pull requests
         if: success()
         uses: repo-sync/pull-request@v2
         with:
