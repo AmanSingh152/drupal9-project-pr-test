@@ -29,6 +29,9 @@
     "config": {
         "sort-packages": true
     },
+    "scripts": {
+    "phpsniff": "phpcs --standard=Drupal web/modules/custom"
+    }, 
     "extra": {
         "drupal-scaffold": {
             "locations": {
