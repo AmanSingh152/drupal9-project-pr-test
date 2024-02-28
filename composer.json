@@ -29,6 +29,9 @@
     "config": {
         "sort-packages": true
     },
+    "scripts": {
+    "phpsniff": "phpcs --standard=Drupal web/modules/custom"
+    }, 
     "extra": {
         "drupal-scaffold": {
             "locations": {
@@ -82,5 +85,9 @@
                 "      composer remove drupal/core-project-message"
             ]
         }
+    },
+    "require-dev": {
+        "drupal/coder": "^8.3",
+        "squizlabs/php_codesniffer": "^3.9"
     }
 }
